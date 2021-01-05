@@ -22,6 +22,22 @@
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
             </div>
 
+            <!-- Devices -->
+            @if($devices->count())
+                <div class="mt-4">
+                    <x-label for="device" :value="__('Device')" />
+                    <select name="device" id="device" class="block mt-1 w-full" required>
+                        @foreach ($devices as $device)
+                            <option value={{$device->id}}>{{ $device->name }}</option>
+                        @endforeach 
+                    </select>
+                </div>
+            @else
+                <div class="mt-4">
+                    <div class="block mt-1 w-full text-red-500">All devices already in use. Pres F5 to check again</div>
+                </div>
+            @endif
+
             <!-- Password -->
             <div class="mt-4">
                 <x-label for="password" :value="__('Password')" />

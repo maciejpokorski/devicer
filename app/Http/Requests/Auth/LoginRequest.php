@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use App\Models\Device;
 
 class LoginRequest extends FormRequest
 {
@@ -30,6 +31,7 @@ class LoginRequest extends FormRequest
     {
         return [
             'email' => 'required|string|email',
+            'device' => 'sometimes|required|exists:devices,id|unique:users,device_id',
             'password' => 'required|string',
         ];
     }

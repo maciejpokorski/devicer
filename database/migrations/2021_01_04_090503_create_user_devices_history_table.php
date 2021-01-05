@@ -18,7 +18,7 @@ class CreateUserDevicesHistoryTable extends Migration
             $table->foreignId('user_id')->constrained();
             $table->foreignId('device_id')->constrained();
             $table->unsignedInteger('millage_old')->default(0);
-            $table->unsignedInteger('millage_new');
+            $table->unsignedInteger('millage_new')->nullable();
             $table->boolean('is_accesable_old')->default(1);
             $table->boolean('is_accesable_new')->default(1);
             $table->timestamps();
