@@ -32,4 +32,4 @@
 # Database schema
 
 
-<img  src="https://i.imgur.com/b8egiDg.png">
+<img  src="https://i.imgur.com/fl0Qn6o.png">

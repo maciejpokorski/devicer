@@ -24,6 +24,8 @@ class CreateDevicesTable extends Migration
             $table->string('registration_number');
             $table->unsignedInteger('millage')->default(0);
             $table->timestamps();
+
+            $table->foreignId('user_id')->nullable()->constrained();
         });
     }
 
