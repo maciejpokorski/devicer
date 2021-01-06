@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,8 +18,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
+Route::get('/dashboard', function (Request $request) {
+    $last_login = $request->session()->get('last_login');
+    return view('dashboard', compact('last_login'));
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
