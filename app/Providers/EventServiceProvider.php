@@ -7,8 +7,7 @@ use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Logout;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
-use App\Listeners\AssignDevice;
+use App\Listeners\LoginListener;
 use App\Listeners\UnAssignDevice;
 
 class EventServiceProvider extends ServiceProvider
@@ -23,7 +22,7 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         Login::class => [
-            AssignDevice::class,
+            LoginListener::class,
         ],
         Logout::class => [
             UnAssignDevice::class,

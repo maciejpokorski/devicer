@@ -8,14 +8,14 @@ use App\Models\UserDeviceHistory;
 use App\Models\Device;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Auth\LoginRequest;
+use Carbon\Carbon;
 
-class AssignDevice
+class LoginListener
 {
     /**
      * Request
-     * @var null
      */
-    private $request = null;
+    private $request;
 
     /**
      * Create the event listener.
@@ -35,8 +35,9 @@ class AssignDevice
      */
     public function handle($event)
     {
-        $this->assign($event->user);
+        $this->assignDevice($event->user);
         $this->initHistory(Auth::user());
+        $this->saveLastLoginTimeInSession();
     }
 
     /**
@@ -44,7 +45,7 @@ class AssignDevice
      *
      * @return void
      */
-    private function assign($user)
+    private function assignDevice($user)
     {
         $device_id = $this->request->get('device');
         if($device_id)
@@ -76,6 +77,13 @@ class AssignDevice
         ]);
         
         $sessionValue = $history->id;
+        session([$sessionKey => $sessionValue]);
+    }
+
+    private function saveLastLoginTimeInSession()
+    {
+        $sessionKey = 'last_login';
+        $sessionValue = Carbon::now();
         session([$sessionKey => $sessionValue]);
     }
 }
