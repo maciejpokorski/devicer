@@ -15,8 +15,8 @@ class CreateUserDevicesHistoryTable extends Migration
     {
         Schema::create('user_devices_history', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('device_id')->constrained();
+            $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('device_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedInteger('millage_old')->default(0);
             $table->unsignedInteger('millage_new')->nullable();
             $table->boolean('is_accesable_old')->default(1);

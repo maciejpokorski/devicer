@@ -25,7 +25,7 @@ class CreateDevicesTable extends Migration
             $table->unsignedInteger('millage')->default(0);
             $table->timestamps();
 
-            $table->foreignId('user_id')->nullable()->constrained();
+            $table->foreignId('user_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
