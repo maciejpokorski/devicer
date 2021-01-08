@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use App\Models\Device;
+use App\Models\UserDeviceHistory;
+use App\Models\User;
+use App\Http\Controllers\UserContoller;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,8 +22,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::resource('users', UserContoller::class);
+
 Route::get('/dashboard', function (Request $request) {
     $last_login = $request->session()->get('last_login');
+    
+    if ($request->user()->is_admin)
+    {
+        $devices = Device::all();
+        $users = User::all();
+        $history = UserDeviceHistory::all();
+
+        return view('dashboard-admin', compact('devices', 'users', 'history'));
+    }
+
     return view('dashboard', compact('last_login'));
 })->middleware(['auth'])->name('dashboard');
 
