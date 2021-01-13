@@ -41,16 +41,19 @@ class UserContoller extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'introduction' => 'required',
-            'location' => 'required',
-            'cost' => 'required'
+       $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,id',
+            'is_active' => 'required|boolean',
+            'is_admin' => 'required|boolean',
+            'device_id' => 'sometimes|required|exists:devices,id'
         ]);
-
        User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'is_active' => $request->is_active,
+            'is_admin' => $request->is_admin,
+            'device_id' => $request->device_id,
             'password' => Hash::make($request->password),
         ]);
 
@@ -95,6 +98,7 @@ class UserContoller extends Controller
             'email' => 'required|string|email|max:255|unique:users,id',
             'is_active' => 'required|boolean',
             'is_admin' => 'required|boolean',
+            'device_id' => 'sometimes|required|exists:devices,id'
         ]);
         $user->update($request->all());
 
