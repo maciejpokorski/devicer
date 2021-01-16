@@ -46,7 +46,7 @@ class UserContoller extends Controller
             'email' => 'required|string|email|max:255|unique:users,id',
             'is_active' => 'required|boolean',
             'is_admin' => 'required|boolean',
-            'device_id' => 'sometimes|required|exists:devices,id'
+            // 'device_id' => 'sometimes|required|exists:devices,id'
         ]);
        User::create([
             'name' => $request->name,
@@ -98,7 +98,7 @@ class UserContoller extends Controller
             'email' => 'required|string|email|max:255|unique:users,id',
             'is_active' => 'required|boolean',
             'is_admin' => 'required|boolean',
-            'device_id' => 'sometimes|required|exists:devices,id'
+            // 'device_id' => 'sometimes|required|exists:devices,id'
         ]);
         $user->update($request->all());
 
