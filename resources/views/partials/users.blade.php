@@ -4,6 +4,7 @@
              <th class="px-4 py-2 w-20">Id</th>
              <th class="px-4 py-2">Name</th>
              <th class="px-4 py-2">Is Admin</th>
+             <th class="px-4 py-2">Is Active</th>
              <th class="px-4 py-2">Current device</th>
              <th class="px-4 py-2">Action</th>
          </tr>
@@ -15,6 +16,7 @@
              <td class="border px-4 py-2">{{ $user->id }}</td>
              <td class="border px-4 py-2">{{ $user->name }}</td>
              <td class="border px-4 py-2">{{ $user->is_admin }}</td>
+             <td class="border px-4 py-2">{{ $user->is_active }}</td>
              <td class="border px-4 py-2">{{ $user->device ? $user->device->name : 'Not logged in' }}</td>
              <td class="border px-4 py-2">
                  <form action="{{ route('users.destroy', $user->id) }}" method="POST">
