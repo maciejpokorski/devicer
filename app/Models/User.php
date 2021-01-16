@@ -47,7 +47,7 @@ class User extends Authenticatable
     ];
 
     /**
-    * Get the phone associated with the user.
+    * Get the device associated with the user.
     */
     public function device()
     {
