@@ -6,6 +6,7 @@ use App\Models\Device;
 use App\Models\UserDeviceHistory;
 use App\Models\User;
 use App\Http\Controllers\UserContoller;
+use App\Http\Controllers\UserDeviceHistoryController;
 use App\Http\Controllers\DeviceController;
 
 /*
@@ -25,6 +26,7 @@ Route::get('/', function () {
 
 Route::resource('users', UserContoller::class);
 Route::resource('devices', DeviceController::class);
+Route::resource('histories', UserDeviceHistoryController::class);
 
 Route::get('/dashboard', function (Request $request) {
     $last_login = $request->session()->get('last_login');
