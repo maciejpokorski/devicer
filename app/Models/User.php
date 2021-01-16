@@ -53,4 +53,12 @@ class User extends Authenticatable
     {
         return $this->hasOne(Device::class);
     }
+
+    /**
+    * Get the users who don't have any device
+    */
+    public static function withoutDevice()
+    {
+        return (new static)::whereNull('device_id')->get();
+    }
 }
