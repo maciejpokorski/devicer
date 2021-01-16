@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use App\Models\Device;
+use App\Models\User;
 
 class LoginRequest extends FormRequest
 {
@@ -46,6 +47,7 @@ class LoginRequest extends FormRequest
     public function authenticate()
     {
         $this->ensureIsNotRateLimited();
+        $this->ensureUserIsActive();
 
         if (! Auth::attempt($this->only('email', 'password'), $this->filled('remember'))) {
             RateLimiter::hit($this->throttleKey());
@@ -56,6 +58,24 @@ class LoginRequest extends FormRequest
         }
 
         RateLimiter::clear($this->throttleKey());
+
+    }
+
+     /**
+     * Ensure the user which tries to log in has active account
+     *
+     * @return void
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function ensureUserIsActive()
+    {
+        $user = User::where('email', $this->only('email'))->first();
+        if ($user && !$user->is_active){
+            throw ValidationException::withMessages([
+                    'active' => 'Your account is not active.',
+            ]);
+        }
     }
 
     /**
