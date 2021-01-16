@@ -49,7 +49,7 @@ class UnAssignDevice
         $historyId = session($sessionKey);
         
         $history = UserDeviceHistory::findOrFail($historyId);
-        $history->millage_new = $device->millage;
+        $history->millage_new = $device->millage ?? 0;
         $history->is_accesable_new = $device->is_accesable;
         $history->save();
         
