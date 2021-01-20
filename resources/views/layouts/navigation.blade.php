@@ -103,4 +103,7 @@
             </div>
         </div>
     </div>
+    @if(Session::has('success'))
+        @include('components.alert')
+    @endif
 </nav>
