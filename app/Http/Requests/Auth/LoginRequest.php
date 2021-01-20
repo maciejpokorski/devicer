@@ -48,6 +48,7 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
         $this->ensureUserIsActive();
+        $this->ensureDeviceIsAccesable();
 
         if (! Auth::attempt($this->only('email', 'password'), $this->filled('remember'))) {
             RateLimiter::hit($this->throttleKey());
@@ -74,6 +75,23 @@ class LoginRequest extends FormRequest
         if ($user && !$user->is_active){
             throw ValidationException::withMessages([
                     'active' => 'Your account is not active.',
+            ]);
+        }
+    }
+
+     /**
+     * Ensure the device which was choosen is accesable
+     *
+     * @return void
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function ensureDeviceIsAccesable()
+    {
+        $device = Device::find($this->get('device'));
+        if (!$device || ($device && !$device->is_accesable)){
+            throw ValidationException::withMessages([
+                    'device' => 'Choosen device is not accesable',
             ]);
         }
     }
