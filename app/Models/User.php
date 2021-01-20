@@ -59,6 +59,6 @@ class User extends Authenticatable
     */
     public static function withoutDevice()
     {
-        return (new static)::whereNull('device_id')->get();
+        return (new static)::whereNull('device_id')->where('is_active', 1)->get();
     }
 }
