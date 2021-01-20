@@ -15,7 +15,7 @@ class AddCustomFieldsToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->boolean('is_admin')->default(0);
-            $table->boolean('is_active')->default(1);
+            $table->boolean('is_active')->default(0);
             $table->foreignId('unit_id')->nullable()->constrained();
             $table->foreignId('device_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
         });
