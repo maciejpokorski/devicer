@@ -26,6 +26,7 @@
 
 4.  ```npm run dev```
 5. ```php artisan migrate```
+
 5.1  ```php artisan migrate:fresh``` if want to clear all before
 
 6.  ```php artisan serve```
