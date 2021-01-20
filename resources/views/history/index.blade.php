@@ -18,4 +18,5 @@
             </div>
         </div>
     </div>
+   {{ $history->links() }}
 </x-app-layout>

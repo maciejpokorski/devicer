@@ -18,4 +18,5 @@
             </div>
         </div>
     </div>
+   {{ $devices->links() }}
 </x-app-layout>
