@@ -29,6 +29,6 @@ class Device extends Model
      */
     public static function notInUse()
     {
-        return (new static)::whereNull('user_id')->get();
+        return (new static)::whereNull('user_id')->where('is_accesable', 1)->get();
     }
 }
