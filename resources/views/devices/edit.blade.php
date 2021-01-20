@@ -64,7 +64,7 @@
                         <div class="mt-4">
                             <x-label for="inspection_time" :value="__('Inspection Time')" />
                             <div>
-                                <input type="datetime-local" id="inspection_time" name="inspection_time" value="{{ date('Y-m-d\TH:i:s') }}">
+                                <input type="datetime-local" id="inspection_time" name="inspection_time" value="{{ date_format(date_create($device->inspection_time),'Y-m-d\TH:i:s') ?? date('Y-m-d\TH:i:s') }}">
                             </div>
                         </div>
 

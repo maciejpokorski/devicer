@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Device;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DeviceController extends Controller
@@ -45,6 +46,7 @@ class DeviceController extends Controller
             'name' => 'required|string|max:255',
             'is_accesable' => 'required|boolean',
             'registration_number' => 'required|string|max:255',
+            'inspection_time' => 'date',
             'millage' => 'required|integer|gte:0',
         ]); 
         Device::create([
@@ -54,6 +56,7 @@ class DeviceController extends Controller
             'name' => $request->name,
             'is_accesable' => $request->is_accesable,
             'registration_number' => $request->registration_number,
+            'inspection_time' => Carbon::parse($request->inspection_time),
             'millage' => $request->millage,
         ]);
 
@@ -99,7 +102,12 @@ class DeviceController extends Controller
             'name' => 'required|string|max:255',
             'is_accesable' => 'required|boolean',
             'registration_number' => 'required|string|max:255',
+            'inspection_time' => 'date',
             'millage' => 'required|integer|gte:0',
+        ]);
+
+        $request->merge([
+            'inspection_time' => Carbon::parse($request->get('inspection_time')),
         ]);
         $device->update($request->all());
 
