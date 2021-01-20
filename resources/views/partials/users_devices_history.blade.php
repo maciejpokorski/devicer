@@ -15,10 +15,10 @@
           @foreach($history as $h)
           <tr>
               <td class="border px-4 py-2">
-                  <a href="{{ route('devices.edit', $h->device->id) }}" class="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"> {{ $h->device->name }} </a>
+                  <a href="{{ route('devices.edit', $h->device->id) }}" class="float-left underline text-blue-600 hover:text-blue-800 visited:text-purple-600">{{$h->device->name}}</a>
               </td>
               <td class="border px-4 py-2">
-                  <a href="{{ route('users.edit', $h->user->id) }}" class="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"> {{ $h->user->name }} </a>
+                  <a href="{{ route('users.edit', $h->user->id) }}" class="float-left underline text-blue-600 hover:text-blue-800 visited:text-purple-600">{{$h->user->name }}</a>
               </td>
               <td class="border px-4 py-2"> {{ $h->millage_old}} </td>
               <td class="border px-4 py-2"> {{ $h->millage_new }} </td>
