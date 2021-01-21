@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Http\Controllers\UserContoller;
 use App\Http\Controllers\UserDeviceHistoryController;
 use App\Http\Controllers\DeviceController;
+use App\Http\Controllers\NoteController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,9 +29,11 @@ Route::get('/', function () {
 Route::resource('users', UserContoller::class);
 Route::resource('devices', DeviceController::class);
 Route::resource('histories', UserDeviceHistoryController::class);
+Route::resource('notes', NoteController::class);
 
 Route::get('/dashboard', function (Request $request) {
     $last_login = $request->session()->get('last_login');
+    $note = User::find(Auth::user()->id)->noteCurrent();
     
     if ($request->user()->is_admin)
     {
@@ -40,7 +44,7 @@ Route::get('/dashboard', function (Request $request) {
         return view('dashboard-admin', compact('devices', 'users', 'history'));
     }
 
-    return view('dashboard', compact('last_login'));
+    return view('dashboard', compact('last_login', 'note'));
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
