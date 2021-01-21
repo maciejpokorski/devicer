@@ -9,6 +9,7 @@ use App\Http\Controllers\UserContoller;
 use App\Http\Controllers\UserDeviceHistoryController;
 use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\NoteController;
+use App\Http\Middleware\OnlyForAdmin;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -25,11 +26,13 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::middleware([OnlyForAdmin::class])->group(function () {
+    Route::resource('users', UserContoller::class);
+    Route::resource('devices', DeviceController::class);
+    Route::resource('histories', UserDeviceHistoryController::class);
+});
 
-Route::resource('users', UserContoller::class);
-Route::resource('devices', DeviceController::class);
-Route::resource('histories', UserDeviceHistoryController::class);
-Route::resource('notes', NoteController::class);
+Route::resource('notes', NoteController::class)->middleware(['auth', 'notes']);
 
 Route::get('/dashboard', function (Request $request) {
     $last_login = $request->session()->get('last_login');
