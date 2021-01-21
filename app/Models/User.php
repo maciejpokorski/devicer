@@ -68,7 +68,7 @@ class User extends Authenticatable
     */
     public function noteCurrent()
     {
-        return $this->historyCurrent() ?? null;
+        return $this->historyCurrent()->note ?? null;
     }
 
     /**
