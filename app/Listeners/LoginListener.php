@@ -73,6 +73,7 @@ class LoginListener
             'user_id' => $user->id,
             'device_id' => $user->device_id,
             'millage_old' => $device->millage,
+            'updated_at' => null,
             'is_accesable_old' => $device->is_accesable
         ]);
         

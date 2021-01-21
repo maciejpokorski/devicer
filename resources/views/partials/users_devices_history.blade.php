@@ -5,6 +5,7 @@
               <th class="px-4 py-2">User</th>
               <th class="px-4 py-2">Millage before</th>
               <th class="px-4 py-2">Millage after</th>
+              <th class="px-4 py-2">User note</th>
               <th class="px-4 py-2">Start</th>
               <th class="px-4 py-2">End</th>
               <th class="px-4 py-2">Action</th>
@@ -22,6 +23,7 @@
               </td>
               <td class="border px-4 py-2"> {{ $h->millage_old}} </td>
               <td class="border px-4 py-2"> {{ $h->millage_new }} </td>
+              <td class="border px-4 py-2"> {{ $h->note ? $h->note->text : '' }} </td>
               <td class="border px-4 py-2"> {{ $h->created_at }} </td>
               <td class="border px-4 py-2"> {{ $h->updated_at }} </td>
               <td class="border px-4 py-2">

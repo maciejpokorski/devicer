@@ -61,4 +61,29 @@ class User extends Authenticatable
     {
         return (new static)::whereNull('device_id')->where('is_active', 1)->get();
     }
+
+    
+    /**
+    * Get the current user note
+    */
+    public function noteCurrent()
+    {
+        return $this->historyCurrent() ?? null;
+    }
+
+    /**
+    * Get the current user history
+    */
+    public function historyCurrent()
+    {
+        return $this->history()->whereNull('updated_at')->latest()->first();
+    }
+
+    /**
+    * Get the user history
+    */
+    public function history()
+    {
+        return $this->hasMany(UserDeviceHistory::class);
+    }
 }

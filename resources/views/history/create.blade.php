@@ -77,6 +77,14 @@
                             <x-input id="millage_new" class="block mt-1 w-full" type="number" min="0" name="millage_new" :value="old('millage_new')" required />
                         </div>
 
+                          <!-- Note -->
+                        <div class="mt-4">
+                            <x-label for="note" :value="__('Note')" />
+
+                            <x-input id="note" class="block mt-1 w-full" type="text" name="note" :value="old('note')"/>
+                        </div>
+
+
                         <div class="flex items-center justify-end mt-4">
                             <x-button class="ml-4">
                                 {{ __('Create') }}

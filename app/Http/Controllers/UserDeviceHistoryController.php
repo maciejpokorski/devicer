@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Device;
+use App\Models\Note;
 use App\Models\User;
 use App\Models\UserDeviceHistory;
 use Carbon\Carbon;
@@ -49,15 +50,22 @@ class UserDeviceHistoryController extends Controller
             'created_at' => 'required|date',
             'updated_at' => 'required|date',
             'millage_old' => 'required|integer|gte:0',
-            'millage_new' => 'required|integer|gte:millage_old'
+            'millage_new' => 'required|integer|gte:millage_old',
+            'note' => 'sometimes|string|max:255'
         ]);
-       UserDeviceHistory::create([
+
+       $history = UserDeviceHistory::create([
             'device_id' => $request->device_id,
-            'user_id' => $request->device_id,
+            'user_id' => $request->user_id,
             'created_at' => Carbon::parse($request->created_at),
             'updated_at' => Carbon::parse($request->updated_at),
             'millage_old' => $request->millage_old,
             'millage_new' => $request->millage_new,
+        ]);
+
+        Note::create([
+            'text' => $request->note,
+            'history_id' => $history->id
         ]);
 
         return redirect()->route('histories.index')
@@ -103,17 +111,26 @@ class UserDeviceHistoryController extends Controller
             'created_at' => 'required|date',
             'updated_at' => 'required|date',
             'millage_old' => 'required|integer|gte:0',
-            'millage_new' => 'required|integer|gte:millage_old'
+            'millage_new' => 'required|integer|gte:millage_old',
+            'note' => 'sometimes|string|max:255'
         ]);
+
 
        $history->update([
             'device_id' => $request->device_id,
-            'user_id' => $request->device_id,
+            'user_id' => $request->user_id,
             'created_at' => Carbon::parse($request->created_at),
             'updated_at' => Carbon::parse($request->updated_at),
             'millage_old' => $request->millage_old,
             'millage_new' => $request->millage_new,
         ]);
+
+        if($request->note)
+        {
+            $note = Note::firstOrNew(['history_id' =>  $history->id]);
+            $note->text = $request->note;
+            $note->save();
+        }
 
         return redirect()->route('histories.index')
             ->with('success', 'history updated successfully');

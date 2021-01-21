@@ -18,6 +18,7 @@ class UserDeviceHistory extends Model
         'user_id',
         'device_id',
         'millage_old',
+        'millage_new',
         'created_at',
         'updated_at',
     ];
@@ -43,5 +44,13 @@ class UserDeviceHistory extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /**
+    * Get the note associated with the history.
+    */
+    public function note()
+    {
+        return $this->hasOne(Note::class, 'history_id');
     }
 }
